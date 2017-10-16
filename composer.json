@@ -1,0 +1,19 @@
+{
+    "name": "watchowl/cake-server-monitor",
+    "description": "Server Monitor built with CakePHP 3",
+    "type": "cakephp-plugin",
+    "require": {
+        "cakephp/cakephp": "~3.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7|^6.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Li",
+            "email": "welcome@watchowl.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
