@@ -15,5 +15,15 @@
             "email": "welcome@watchowl.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "WatchOwl\\CakeServerMonitor\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WatchOwl\\CakeServerMonitor\\Test\\": "tests"
+        }
+    }
 }
