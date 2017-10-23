@@ -13,6 +13,30 @@ namespace WatchOwl\CakeServerMonitor\Test\System;
 use WatchOwl\CakeServerMonitor\CommandDefinition\CommandDefinition;
 use WatchOwl\CakeServerMonitor\System\OperatingSystem;
 
+class TestCommand extends CommandDefinition
+{
+    public function resolve($output)
+    {
+        return true;
+    }
+
+    public function getSuccessMsg()
+    {
+        return null;
+    }
+
+    public function getFailMsg()
+    {
+        return null;
+    }
+
+    public function rawCommand()
+    {
+        return 'ls -al';
+    }
+
+}
+
 class OperatingSystemTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -28,14 +52,11 @@ class OperatingSystemTest extends \PHPUnit_Framework_TestCase
 
     public function testRun()
     {
-        $commandDefinition = $this->createMock(CommandDefinition::class);
+        $testCommand = new TestCommand();
 
-        $commandDefinition
-            ->expects($this->once())
-            ->method('rawCommand')
-            ->willReturn('');
+        $result = $this->operatingSystem->execute($testCommand);
 
-        $this->operatingSystem->execute($commandDefinition);
+        $this->assertNotEmpty($result);
     }
 
 }
