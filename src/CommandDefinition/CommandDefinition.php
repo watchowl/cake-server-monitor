@@ -12,14 +12,23 @@ namespace WatchOwl\CakeServerMonitor\CommandDefinition;
 abstract class CommandDefinition
 {
     /**
-     * @param string $resultStr
-     * @return bool
+     * @param string $output
+     * @return bool resolved result
      */
-    public abstract function resolve($resultStr);
+    public abstract function resolve($output);
 
+    /**
+     * @return string success message
+     */
     public abstract function getSuccessMsg();
 
+    /**
+     * @return string fail message
+     */
     public abstract function getFailMsg();
 
+    /**
+     * @return string command to run on OS
+     */
     public abstract function rawCommand();
 }
