@@ -47,11 +47,40 @@ class OperatingSystemTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->operatingSystem = new OperatingSystem();
+    }
+
+    public function testCheck()
+    {
+        // Arrange
+        $mockCommand = $this->createMock(
+            TestCommand::class
+        );
+
+        $mockCommand
+            ->expects($invoke = $this->any())
+            ->method('resolve')
+            ->willReturn(false);
+
+        $this->operatingSystem = $this
+            ->getMockBuilder(OperatingSystem::class)
+            ->setMethods(['execute'])
+            ->getMock();
+
+        // Act
+        $result = $this->operatingSystem->check($mockCommand);
+
+        // Assert
+        $this->assertFalse($result);
+        $this->assertSame(1, $invoke->getInvocationCount());
+        $this->assertSame($mockCommand->getFailMsg(), $this->operatingSystem->getMsg());
     }
 
     public function testRun()
     {
+        $this->operatingSystem = new OperatingSystem(
+            []
+        );
+
         $testCommand = new TestCommand();
 
         $result = $this->operatingSystem->execute($testCommand);

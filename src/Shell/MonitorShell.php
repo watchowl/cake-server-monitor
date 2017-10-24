@@ -11,8 +11,20 @@ namespace WatchOwl\CakeServerMonitor\Shell;
 
 use Cake\Console\Shell;
 
+use WatchOwl\CakeServerMonitor\System\OperatingSystem;
+
 class MonitorShell extends Shell
 {
+    /**
+     * @var OperatingSystem
+     */
+    private $operatingSystem;
+
+    public function initialize()
+    {
+        parent::initialize();
+        // load commands from config file
+    }
 
     public function getOptionParser()
     {
@@ -42,24 +54,5 @@ class MonitorShell extends Shell
         $this->out($this->OptionParser->help());
     }
 
-    public function checkDiskSpace()
-    {
-
-    }
-
-    public function checkCpuUsage()
-    {
-
-    }
-
-    public function checkMySql()
-    {
-
-    }
-
-    public function checkNginx()
-    {
-
-    }
 
 }

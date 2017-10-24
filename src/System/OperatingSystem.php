@@ -14,8 +14,39 @@ use WatchOwl\CakeServerMonitor\CommandDefinition\CommandDefinition;
 
 class OperatingSystem
 {
-    public function execute(CommandDefinition $commandDefinition)
+    private $msg;
+
+    /**
+     * @param CommandDefinition $command command to check
+     * @return boolean result of checking
+     */
+    public function check(CommandDefinition $command)
     {
-        return shell_exec($commandDefinition->rawCommand());
+        $result = $this->execute($command);
+
+        if ($command->resolve($result)) {
+            $this->msg = $command->getSuccessMsg();
+            return true;
+        }
+
+        $this->msg = $command->getFailMsg();
+        return false;
+    }
+
+    /**
+     * @param CommandDefinition $command command to be executed
+     * @return string result of running the command
+     */
+    public function execute(CommandDefinition $command)
+    {
+        return shell_exec($command->rawCommand());
+    }
+
+    /**
+     * @return string msg fail/success
+     */
+    public function getMsg()
+    {
+        return $this->msg;
     }
 }
