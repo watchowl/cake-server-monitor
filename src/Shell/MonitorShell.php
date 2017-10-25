@@ -35,6 +35,8 @@ class MonitorShell extends Shell
         $this->commands = array_map(function ($namespaceClassName) {
             return new $namespaceClassName();
         }, $commands);
+
+        $this->operatingSystem = new OperatingSystem();
     }
 
     public function getOptionParser()
@@ -65,6 +67,18 @@ class MonitorShell extends Shell
         $this->out($this->OptionParser->help());
     }
 
+    public function run()
+    {
+    }
+
+    public function view()
+    {
+        foreach ($this->commands as $command) {
+            $this->operatingSystem->check($command);
+            $this->info($this->operatingSystem->getMsg());
+        }
+    }
+
     /**
      * @return array list of commands
      */
@@ -73,13 +87,27 @@ class MonitorShell extends Shell
         return $this->commands;
     }
 
-    public function run()
+    /**
+     * @param array $commands list of commands
+     */
+    public function setCommands($commands)
     {
-        
+        $this->commands = $commands;
     }
 
-    public function view()
+    /**
+     * @return OperatingSystem
+     */
+    public function getOperatingSystem()
     {
+        return $this->operatingSystem;
+    }
 
+    /**
+     * @param OperatingSystem $operatingSystem
+     */
+    public function setOperatingSystem($operatingSystem)
+    {
+        $this->operatingSystem = $operatingSystem;
     }
 }

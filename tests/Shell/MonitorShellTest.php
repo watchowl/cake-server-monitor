@@ -12,7 +12,9 @@ namespace WatchOwl\CakeServerMonitor\Test;
 
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
+use WatchOwl\CakeServerMonitor\CommandDefinition\DiskSpace;
 use WatchOwl\CakeServerMonitor\Shell\MonitorShell;
+use WatchOwl\CakeServerMonitor\System\OperatingSystem;
 
 class MonitorShellTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,5 +47,29 @@ class MonitorShellTest extends \PHPUnit_Framework_TestCase
         }, $commands);
 
         $this->assertSame($commandClasses, $expected);
+    }
+
+    public function testRun()
+    {
+
+    }
+
+    public function testView()
+    {
+        $operatingSystem = $this->createMock(OperatingSystem::class);
+
+        $operatingSystem
+            ->expects($invoke = $this->any())
+            ->method('check')
+            ->willReturn(true);
+
+        $this->MonitorShell->setOperatingSystem($operatingSystem);
+
+        $this->MonitorShell->view();
+
+        $this->assertSame(
+            count(Configure::read('CakeServerMonitor.commands')),
+            $invoke->getInvocationCount()
+        );
     }
 }
