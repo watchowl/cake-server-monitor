@@ -13,10 +13,9 @@
          stopOnSkipped="false"
          syntaxCheck="false">
 
-
     <testsuites>
         <testsuite name="CakeServerMonitor">
-            <directory>./tests/TestCase/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

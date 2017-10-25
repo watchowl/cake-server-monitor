@@ -11,6 +11,7 @@ namespace WatchOwl\CakeServerMonitor\Shell;
 
 use Cake\Console\Shell;
 
+use Cake\Core\Configure;
 use WatchOwl\CakeServerMonitor\System\OperatingSystem;
 
 class MonitorShell extends Shell
@@ -20,10 +21,20 @@ class MonitorShell extends Shell
      */
     private $operatingSystem;
 
+    /**
+     * @var array $commands list of commands
+     */
+    private $commands = [];
+
     public function initialize()
     {
         parent::initialize();
-        // load commands from config file
+
+        $commands = (array)Configure::read('CakeServerMonitor.commands');
+
+        $this->commands = array_map(function ($namespaceClassName) {
+            return new $namespaceClassName();
+        }, $commands);
     }
 
     public function getOptionParser()
@@ -54,5 +65,21 @@ class MonitorShell extends Shell
         $this->out($this->OptionParser->help());
     }
 
+    /**
+     * @return array list of commands
+     */
+    public function getCommands()
+    {
+        return $this->commands;
+    }
 
+    public function run()
+    {
+        
+    }
+
+    public function view()
+    {
+
+    }
 }
