@@ -60,6 +60,12 @@ class DiskSpace extends CommandDefinition
         return 'df -P .';
     }
 
+    /**
+     * Extract percentage of usage from command output
+     *
+     * @param $output
+     * @return int
+     */
     private function calCurrentUsage($output)
     {
         $matches = [];
