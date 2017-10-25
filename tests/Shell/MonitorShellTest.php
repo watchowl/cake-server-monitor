@@ -12,6 +12,7 @@ namespace WatchOwl\CakeServerMonitor\Test;
 
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
+use Cake\Network\Email\Email;
 use WatchOwl\CakeServerMonitor\CommandDefinition\DiskSpace;
 use WatchOwl\CakeServerMonitor\Shell\MonitorShell;
 use WatchOwl\CakeServerMonitor\System\OperatingSystem;
@@ -49,9 +50,52 @@ class MonitorShellTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($commandClasses, $expected);
     }
 
+    public function testInit()
+    {
+        Configure::write(
+            'CakeServerMonitor.email',
+            [
+                'profile' => 'default',
+                'recipients' => ['test@gmail.com']
+            ]
+        );
+        $email = $this->MonitorShell->getEmail();
+        $this->assertInstanceOf(Email::class, $email);
+    }
+
     public function testRun()
     {
+        $email = $this->createMock(Email::class);
+        $email
+            ->expects($this->once())
+            ->method('send')
+            ->willReturn(true);
 
+        $command = $this->createMock(DiskSpace::class);
+        $command
+            ->expects($this->any())
+            ->method('resolve')
+            ->willReturn(false);
+
+        $this->MonitorShell->setEmail($email);
+        $this->MonitorShell->setCommands([$command]);
+        $this->MonitorShell->run();
+
+        $email = $this->createMock(Email::class);
+        $email
+            ->expects($this->exactly(0))
+            ->method('send')
+            ->willReturn(true);
+
+        $command = $this->createMock(DiskSpace::class);
+        $command
+            ->expects($this->any())
+            ->method('resolve')
+            ->willReturn(true);
+
+        $this->MonitorShell->setEmail($email);
+        $this->MonitorShell->setCommands([$command]);
+        $this->MonitorShell->run();
     }
 
     public function testView()
