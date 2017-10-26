@@ -158,12 +158,10 @@ class MonitorShell extends Shell
     private function createEmail()
     {
         $emailConfig = Configure::read('CakeServerMonitor.email');
-
-        $this->extractRecipients($emailConfig);
-
+        $recipients = $this->extractRecipients($emailConfig);
         $email = new Email();
         $email->setProfile(Hash::get($emailConfig, 'profile'));
-        $email->setTo(Hash::get($emailConfig, 'recipients'));
+        $email->setTo($recipients);
         $email->setSubject(('Server Warning from Cake Server Monitor'));
         return $email;
     }
@@ -189,5 +187,7 @@ class MonitorShell extends Shell
                 );
             }
         }
+
+        return $recipients;
     }
 }
