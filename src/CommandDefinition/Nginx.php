@@ -9,7 +9,26 @@
 namespace WatchOwl\CakeServerMonitor\CommandDefinition;
 
 
-class Nginx
+class Nginx extends CommandDefinition
 {
+    public function resolve($output)
+    {
+        return !empty($output);
+    }
+
+    public function getSuccessMsg()
+    {
+        return 'Nginx is running fine';
+    }
+
+    public function getFailMsg()
+    {
+        return 'Nginx has stopped running';
+    }
+
+    public function rawCommand()
+    {
+        return 'ps -e | grep nginx$';
+    }
 
 }
