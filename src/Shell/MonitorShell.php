@@ -40,6 +40,8 @@ class MonitorShell extends Shell
 
         $commands = (array)Configure::read('CakeServerMonitor.commands');
 
+        $commands = array_filter($commands);
+
         $this->commands = array_map(function ($namespaceClassName) {
             return new $namespaceClassName();
         }, $commands);
