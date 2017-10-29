@@ -41,7 +41,7 @@ class DiskSpace extends CommandDefinition
      */
     public function getSuccessMsg()
     {
-        return sprintf('Current disk space usage is safe at %s', $this->currentUsagePercentage);
+        return sprintf('Current disk space usage is safe at %s%', $this->currentUsagePercentage);
     }
 
     /**
@@ -49,7 +49,7 @@ class DiskSpace extends CommandDefinition
      */
     public function getFailMsg()
     {
-        return sprintf('Disk space usage is more than %s', $this->currentUsagePercentage);
+        return sprintf('Disk space usage is running low at %s%', $this->currentUsagePercentage);
     }
 
     /**
