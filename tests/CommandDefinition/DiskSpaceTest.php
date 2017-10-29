@@ -31,6 +31,7 @@ class DiskSpaceTest extends \PHPUnit_Framework_TestCase
                 '/dev/root         24505644 5031028  18213048      22% /';
         $result = $this->diskSpace->resolve($output);
         $this->assertTrue($result);
+        $this->assertNotEmpty($this->diskSpace->getSuccessMsg());
 
         $output =
                 'Filesystem     1024-blocks    Used Available Capacity Mounted on'.
@@ -38,6 +39,7 @@ class DiskSpaceTest extends \PHPUnit_Framework_TestCase
                 '/dev/root         24505644 5031028  18213048      90% /';
         $result = $this->diskSpace->resolve($output);
         $this->assertFalse($result);
+        $this->assertNotEmpty($this->diskSpace->getFailMsg());
     }
 
     public function testRawCommand()
