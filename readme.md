@@ -26,10 +26,10 @@ Configure::write(
 
 ## Scheduling task
 
-Last step to make this work is to add a cron job. 
-You can do so by adding a similar line as show below to your system's crontab file. 
-Do remember to update the path to your own project's. 
-The following cron job runs at 1 am of every day, you can change it
+The last step to make this work is to add a cron job. 
+You can do so by adding a similar line as shown below to your system's crontab file. 
+Do remember to update the path to your own project. 
+The following cron job runs at 1 am every day, you can change it
 to your own preference. 
 
 `* 1 * * * cd path && bin/cake monitor run`
