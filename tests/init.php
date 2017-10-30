@@ -37,3 +37,8 @@ Plugin::load('Watchowl/CakeServerMonitor', [
     'bootstrap' => true,
     'path' => dirname(__DIR__) . DS
 ]);
+
+Configure::write(
+    'CakeServerMonitor.email.recipients',
+    'test@test.com'
+);
