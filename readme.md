@@ -35,7 +35,7 @@ to your own preference.
 `* 1 * * * cd path && bin/cake monitor run`
 
 ## Customisation
-CakeServerMonoitor does provide some customisation options. 
+CakeServerMonitor does provide some customisation options. 
 
 + **Changing email profile**
 
